@@ -1,0 +1,188 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+% \usepackage[russian]{babel}
+\usepackage[pdftex]{graphicx, color}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{bm}
+\usepackage[left=2cm,right=2cm,top=1.5cm,bottom=2cm]{geometry}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{textcomp}
+
+\usepackage{setspace}
+\onehalfspacing
+\graphicspath{{pics/}}
+
+\begin{document}
+    \begin{singlespace}
+    \begin{center}
+        \includegraphics[height=3cm]{UVM.png}
+
+        {\large\textbf{Assignment \textnumero 1: Ch 1 (RL textbook) and Ch 13 (AI textbook)}}
+
+        \vspace{0.3cm}
+
+        \textit{\textbf{Ayat Ospanov}}
+
+        September 4, 2018
+    \end{center}
+    \end{singlespace}
+
+    \tableofcontents
+
+    \section{Ch 1 (RL textbook)}
+
+        \subsection{Exercise 1.1}
+            If the algorithms plays against an opponent and as the opponents strategy is fixed, it will only learn to beat it. But if it plays against itself, each step it learns and its strategy changes over time. So it learns better and most probably reaches the optimal strategy. Given tic-tac-toe, to reach the strongest strategy, it should make the first step randomly over games. Otherwise, it only learns how to play for the one side.
+
+        \subsection{Exercise 1.2}
+            If we take adantage of symmetries, it would increase algorithms speed of learning and decreases memory it uses. But if the opponent did not take advantage of symmetries, it would destroy our game. For example, if the opponent makes a mistake in some of the symmetric situations, but not in others, we might take a wrong action assuming the opponent plays equally in all symmetric cases.
+
+        \subsection{Exercise 1.3}
+            Only playing a gready strategy will result in a worse game overall with a high probability. If the algorithm is greedy, it ignores the overall value, and considers only an instant reward. In long run, it will not result in a high value, because there could be a higher reward in the future if it took another action in the past.
+
+        \subsection{Exercise 1.4}
+            When we learn from exploratory moves, we have a set of probabilities which are expected values of each state with exploration steps. When we don't learn from exploratory moves, we only have values of states given the optimal action to be taken. Learning from exploratory moves reduces a variance from future optimal states, increasing the overall gain. That means winning now, doesn't result in winning in the most of games. So exploratory moves result in more wins.
+
+    \section{Ch 13 (AI textbook)}
+
+        \subsection{Exercise 13.8}
+            \textbf{a}: $\bm{P(toothache)}$
+            \begin{align*}
+                P(toothache) &= \sum\limits_{x \in Cavity, y \in Catch} P(toothache, x, y) =\\
+                &= 0.108 + 0.012 + 0.016 + 0.064 = 0.2
+            \end{align*}
+
+            \textbf{b}: $\bm{P(Cavity)}$
+            \begin{align*}
+                &P(cavity) = 0.108 + 0.012 + 0.072 + 0.008 = 0.2 \\
+                &P(Cavity) = [P(cavity), P(\neg cavity)] = [P(cavity), 1 - P(cavity)] = [0.2, 0.8]
+            \end{align*}
+
+            \textbf{c}: $\bm{P(Toothache|cavity)}$
+            \begin{align*}
+                &P(toothache|cavity) = \frac{P(toothache, cavity)}{P(cavity)} = \frac{0.108 + 0.012}{0.2} = 0.6 \\
+                &P(Toothache|cavity) = [P(toothache|cavity), P(\neg toothache|cavity)] = [0.6, 0.4]
+            \end{align*}
+
+            \textbf{d}: $\bm{P(Cavity|toothache \lor catch)}$
+            \begin{align*}
+                &P(Cavity|toothache \lor catch) = \frac{P(Cavity, toothache \lor catch)}{P(toothache \lor catch)} \\
+                &P(Cavity, toothache \lor catch) = [P(cavity, toothache \lor catch), P(\neg cavity, toothache \lor catch)] \\
+                &P(cavity, toothache \lor catch) = 0.108 + 0.012 + 0.072 = 0.192 \\
+                &P(\neg cavity, toothache \lor catch) = 0.016 + 0.064 + 0.144 = 0.224 \\
+                &P(toothache \lor catch) = P(cavity, toothache \lor catch) + P(\neg cavity, toothache \lor catch) =\\
+                & \qquad = 0.192 + 0.224 = 0.416 \\
+                &P(Cavity|toothache \lor catch) = [0.192 / 0.416, 0.224 / 0.416] = [0.462, 0.538]
+            \end{align*}
+
+        \subsection{Exercise 13.10}
+            \textbf{a}:
+            \begin{align}
+            \label{a}
+            \begin{split}
+                &P(BAR/BAR/BAR) = P(BELL/BELL/BELL) =\\
+                &= P(LEMON/LEMON/LEMON) = P(CHERRY/CHERRY/CHERRY) =\\
+                & \qquad = \frac{1}{4^3} = \frac{1}{64}\\
+                &P(CHERRY/CHERRY/?) = P(CHERRY/CHERRY) -\\
+                & \qquad - P(CHERRY/CHERRY/CHERRY) = \frac{1}{4^2} - \frac{1}{4^3} = \frac{3}{64}\\
+                &P(CHERRY/?) = P(CHERRY) - P(CHERRY/CHERRY) -\\
+                & \qquad - P(CHERRY/CHERRY/CHERRY) = \frac{1}{4} - \frac{3}{64} - \frac{1}{64} = \frac{12}{64}
+            \end{split}
+            \end{align}
+            \begin{align*}
+                &E = (20 + 15 + 5 + 3) \cdot \frac{1}{64} + 2 \cdot \frac{3}{64} + 1 \cdot \frac{12}{64} =\\
+                & \qquad = \frac{43 + 6 + 12}{64} = \frac{61}{64}
+            \end{align*}
+
+            \textbf{b}:
+            \begin{align*}
+                &P(win) = \sum P(\text{all above in (\ref{a})}) = 4 \cdot \frac{1}{64} + \frac{3}{64} + \frac{12}{64} = \frac{19}{64}
+            \end{align*}
+
+        \subsection{Exercise 13.13}
+            \begin{align*}
+                &Test = \{true, false\} \\
+                &Virus = \{present, \neg present\}\\
+                \\
+                &P_A(true|present) = 0.95\\
+                &P_A(true|\neg present) = 0.1\\
+                &P_B(true|present) = 0.9\\
+                &P_B(true|\neg present) = 0.05\\
+                &P(present) = 0.01
+            \end{align*}
+
+            A test is more indicative, if its posterior probability (probability of a person to have a virus given a positive result) is higher. Find it for each of the tests and compare:
+            \begin{align*}
+                &P_A(present|true) \propto P_A(true|present) P(present) = 0.95 * 0.01 = 0.0095\\
+                &P_A(\neg present|true) \propto P_A(true|\neg present) P(\neg present) = 0.1 * 0.99 = 0.099\\
+                &\text{thus:}\\
+                &P_A(present|true) = \frac{0.0095}{0.0095 + 0.099} = 0.08756\\
+                &\text{similarly for B:}\\
+                &P_B(present|true) = \frac{0.9 * 0.01}{0.9 * 0.01 + 0.05 * 0.99} = 0.15385
+            \end{align*}
+
+            Here we can see the B test is more reliable.
+
+        \subsection{Exercise 13.15}
+            \begin{align*}
+                &P(true|present) = 0.99\\
+                &P(false|\neg present) = 0.99\\
+                &P(present) = 0.0001
+            \end{align*}
+
+            As $P(present|true)$ is proportional to $P(present)$, it is the good news that P(present) is low. Let's calculate it:
+            \begin{align*}
+                &P(present|true) \propto P(true|present) P(present) = 0.99 * 0.0001 = 0.000099\\
+                &P(\neg present|true) \propto P(true|\neg present) P(\neg present) = 0.01 * 0.9999 = 0.009999\\
+                &\text{thus:}\\
+                &P(present|true) = \frac{0.000099}{0.000099 + 0.009999} = 0.0098\\
+            \end{align*}
+
+            It is a really low chance of having the disease. The number means that approx. 1 of 100 people given the positive result of the test is actually have the disease.
+
+        \subsection{Exercise 13.17}
+            \begin{align}
+                \label{given}
+                P(X, Y | Z) = P(X|Z)P(Y|Z)
+            \end{align}
+
+            \begin{align*}
+                P(X|Y,Z) &= \frac{P(X,Y,Z)}{P(Y, Z)} = \frac{P(X,Y|Z)P(Z)}{P(Y,Z)} =\\
+                &= \text{using (\ref{given})} = \frac{P(X|Z)P(Y|Z)P(Z)}{P(Y,Z)} =\\
+                &= \frac{P(X|Z)P(Y,Z)}{P(Y,Z)} = P(X|Z)\\
+            \end{align*}
+            as $X$ and $Y$ are symmetrical, it is also true for $P(Y|X,Z) = P(Y|Z)$
+
+        \subsection{Exercise 13.21}
+            \textbf{a:}
+            \begin{align*}
+                &P(\text{appears blue}|blue) = 0.75\\
+                &P(\text{appears green}|green) = 0.75
+            \end{align*}
+
+            We need to calculate $P(blue|\text{appears blue})$
+            \begin{align*}
+                &P(blue|\text{appears blue}) \propto P(\text{appears blue}|blue) P(blue)\\
+                &P(green|\text{appears blue}) \propto P(\text{appears blue}|green) P(green) =\\
+                & \qquad = (1 - P(\text{appears blue}|blue)) (1 - P(blue))
+            \end{align*}
+
+            Here we need to know $P(blue)$ to find the answer. As we don't have a prior knowledge, let's consider $P(blue) = P(green) = 0.5$. Thus:
+            \begin{align*}
+                &P(blue|\text{appears blue}) \propto 0.75 * 0.5 = 0.375\\
+                &P(green|\text{appears blue}) \propto 0.25 * 0.5 = 0.125\\
+                &\implies\\
+                &P(blue|\text{appears blue}) = \frac{0.375}{0.375 + 0.125} = 0.75
+            \end{align*}
+
+            \textbf{b:}
+            Now, knowing the prior distribution $P(green)=0.9$:
+            \begin{align*}
+                &P(blue|\text{appears blue}) = \frac{0.75 * 0.1}{0.75 * 0.1 + 0.25 * 0.9} = 0.25\\
+                &P(green|\text{appears blue}) = 0.75
+            \end{align*}
+
+            Here the most likely color is green.
+
+\end{document}
