@@ -1,0 +1,89 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+% \usepackage[russian]{babel}
+\usepackage[pdftex]{graphicx, color}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{bm}
+\usepackage[left=2cm,right=2cm,top=1.5cm,bottom=2cm]{geometry}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{float}
+
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{diagbox}
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+
+\graphicspath{{pics/}}
+
+\begin{document}
+    \begin{center}
+        \includegraphics[height=3cm]{UVM.png}
+
+        {\large\textbf{
+            CS253A QR: Reinforcement Learning: Assignment \textnumero 2
+        }}
+
+        \vspace{0.3cm}
+
+        \textit{\textbf{Ayat Ospanov}}
+
+        \today
+    \end{center}
+
+    \tableofcontents
+    \section{2.1}\label{sec:2.1}
+        If $\varepsilon = 0.5$, each second step is the greedy step. This means the probability
+        of choosing the greedy action is at least $0.5$. Further, as we do random step with the
+        probability of $0.5$ and select greedy action in this step with the probability of $\frac{1}{2}$
+        (because we have two actions and one of them is the greedy action), the probability of
+        randomly selecting the greedy action is $0.25$. Therefore, the overall probability of
+        selecting the greedy action is $0.75$.
+
+        We can expand this task to the case of $n$ options/actions and any $\varepsilon$. The answer
+        is $(1 - \varepsilon) + \frac{\varepsilon}{n}$.
+
+    \section{2.2}
+        \begin{table}[H]
+            \centering
+            \caption{Work of a bandit algorithm}
+            \label{tab:algo}
+            \begin{tabular}{|l|l|l|l|l|l|}
+                \hline
+                \rowcolor[HTML]{C0C0C0}
+                \backslashbox{}{t} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}1} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}2} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}3} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}4} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}5} \\ \hline
+                $A_i$ & 1\tikzmark{a1} & 2\tikzmark{a2} & 2\tikzmark{a3} & 2\tikzmark{a4} & 3\tikzmark{a5} \\
+                $R_i$ & -1 & 1 & -2 & 2 & 0 \\ \hline
+                $Q_i(1)$ & 0\tikzmark{q1} & -1 & -1 & -1 & -1 \\
+                $Q_i(2)$ & 0 & 0\tikzmark{q2} & 1\tikzmark{q3} & -0.5\tikzmark{q4} & 0.(3) \\
+                $Q_i(3)$ & 0 & 0 & 0 & 0 & 0\tikzmark{q5} \\
+                $Q_i(4)$ & 0 & 0 & 0 & 0 & 0 \\ \hline
+                Choice & Random & Random & Greedy & $\varepsilon$ case & Random \\ \hline
+            \end{tabular}
+        \end{table}
+
+        \begin{tikzpicture}[overlay, remember picture]
+            \draw [->, thick] ({pic cs:q1}) [bend right] to ({pic cs:a1});
+            \draw [->, thick] ({pic cs:q2}) [bend right] to ({pic cs:a2});
+            \draw [->, thick] ({pic cs:q3}) [bend right] to ({pic cs:a3});
+            \draw [->, thick] ({pic cs:q4}) [bend right] to ({pic cs:a4});
+            \draw [->, thick] ({pic cs:q5}) [bend right] to ({pic cs:a5});
+        \end{tikzpicture}
+
+        On the table \ref{tab:algo} the work of a bandit algorithm is provided by time step.
+        Each arrow shows the Q-value of a chosen action. As on greedy step an algorithm
+        choose the $\text{arg}\max_a Q_t(a)$, the only case of choosing the argmax is
+        step 3. On the step 4 the algorithm chose the value of $-0.5$ which is not the
+        argmax. It means that at this step the $\varepsilon$ case has occured. On the
+        other steps (1, 2, 5) as we have more that one maximum value of Q, the alogrithm
+        chose random argmax. On these steps $\varepsilon$ case could possibly have occurred.
+
+    \section{2.3}
+        In the long run, $\varepsilon = 0.01$ will act better as 99.1\% of the time (see
+        \ref{sec:2.1}) it choose the correct actions, while in the case of $\varepsilon = 0.1$
+        the rate of correct actions is $0.91 \text{ or } 91\%$.
+
+
+
+\end{document}
