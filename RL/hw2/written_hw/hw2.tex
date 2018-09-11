@@ -41,7 +41,7 @@
         randomly selecting the greedy action is $0.25$. Therefore, the overall probability of
         selecting the greedy action is $0.75$.
 
-        We can expand this task to the case of $n$ options/actions and any $\varepsilon$. The answer
+        We can generalize this task to the case of $n$ options/actions and any $\varepsilon$. The answer
         is $(1 - \varepsilon) + \frac{\varepsilon}{n}$.
 
     \section{2.2}
@@ -80,9 +80,38 @@
         chose random argmax. On these steps $\varepsilon$ case could possibly have occurred.
 
     \section{2.3}
-        In the long run, $\varepsilon = 0.01$ will act better as 99.1\% of the time (see
+        In the long run, $\varepsilon = 0.01$ will act better as 99.1\% of the time (see Section.
         \ref{sec:2.1}) it choose the correct actions, while in the case of $\varepsilon = 0.1$
         the rate of correct actions is $0.91 \text{ or } 91\%$.
+
+    \section{2.4}
+        \begin{align*}
+            Q_{n+1} &= (1 - \alpha_n)Q_n + \alpha_n R_n =\\
+                    &= (1 - \alpha_n) [(1 - \alpha_{n-1})Q_{n-1} + \alpha_{n-1}R_{n-1}] + \alpha_n R_n =\\
+                    &= (1 - \alpha_n) (1 - \alpha_{n-1}) Q_{n-1} + \alpha_{n-1}(1 - \alpha_n) R_{n-1} + \alpha_n R_n =\\
+                    &=\prod_{i=1}^n(1-\alpha_i)Q_1 + \sum_{i=1}^n\Big(\alpha_i \prod_{j=i+1}^n(1-\alpha_j)R_i\Big)
+        \end{align*}
+
+    \section{2.5}
+        Orange lines -- constant learning rate (step-size)
+
+        Blue lines -- step-size = $\frac{1}{n}$
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\linewidth]{1.png}
+            \caption{Initial values for $q_*(a)$ are equal}
+        \end{figure}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\linewidth]{2.png}
+            \caption{Initial values for $q_*(a)$ are randomly sampled from normal distribution}
+        \end{figure}
+
+        When initial values for $q_*(a)$ are equal, the convergence is slow. Also in this case the rate of optimal solutions is 1 in the beginning because all values are equal and therefore optimal. When initial values for $q_*(a)$ are random, convergence is faster. In both cases algorithm with a constant step-size converges faster. Moreover, in the case of random $q_*(a)$ sample average method decreases in rate of optimal actions, because it doesn't adapt to the new rewards. Thus, we were convinced that constant step-size is better for nonstationary problems.
+
+
 
 
 
