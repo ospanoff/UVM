@@ -69,5 +69,51 @@
 
         We have proven that $Q_n$ is an exponential recency-weighted average without initial bias.
 
+    \section{Exercise 3.1}
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|llll|}
+            \hline
+            \rowcolor[HTML]{9B9B9B}
+            Examples         & States                                                                                 & Actions                                                                        & Rewards                                                                                                               \\ \hline
+            Self-driving car & \begin{tabular}[c]{@{}l@{}}Surroundings: e.g.\\ distance to objects, etc.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Steering, accelerating,\\ braking, ...\end{tabular} & \begin{tabular}[c]{@{}l@{}}Getting to destination\\ without crashes, overall\\ distance to objects, etc.\end{tabular} \\ \hline
+            Towers of Hanoi  & All possible disk states                                                               & \begin{tabular}[c]{@{}l@{}}Move the top disk\\ to another tower\end{tabular}   & \begin{tabular}[c]{@{}l@{}}Negative (e.g. -1) for\\ a move, so we do\\ less steps\end{tabular}                        \\ \hline
+            Checkers/Chess   & Positions of pieces                                                                    & Moves of each piece                                                            & Winning the game                                                                                                      \\ \hline
+        \end{tabular}
+        \end{table}
+
+    \section{Exercise 3.2}
+        No. There are cases when it is impossible to use (classic) MDP:
+        when there are infinite number of states or actions; when they
+        are continuous; when the environment is non-stationary.
+
+    \section{Exercise 3.3}
+        It depends on the reliability of the actions. If you are sure the
+        body does all actions (accelerator, steering wheel, and brake)
+        (almost) without failures, we can select these actions. As the higher
+        level actions depend on lower level ones, we need to be sure they
+        are effective and faultless. So in terms of driving a car, if we
+        simulate a driver, we can reliably accelerate, brake and etc. a car
+        because they are easy to simulate, thus we can take these actions as
+        main actions. When it is possible to simulate the motion of a car,
+        we can choose 'choices of where to drive' as actions.
+
+    \section{Exercise 3.4}
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|ll|ll|l|}
+            \hline
+            \rowcolor[HTML]{9B9B9B}
+            $s$  & $a$      & $s'$ & $r$                 & $p(s',r|s,a)$ \\ \hline
+            high & search   & high & $r_{\text{search}}$ & $\alpha$      \\
+            high & search   & low  & $r_{\text{search}}$ & $1 - \alpha$  \\
+            high & wait     & high & $r_{\text{wait}}$   & 1             \\
+            low  & search   & low  & $r_{\text{search}}$ & $\beta$       \\
+            low  & search   & high & -3                  & $1 - \beta$   \\
+            low  & wait     & low  & $r_{\text{wait}}$   & 1             \\
+            low  & recharge & high & 0                   & 1             \\ \hline
+        \end{tabular}
+        \end{table}
+
 
 \end{document}
