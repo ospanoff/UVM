@@ -4,7 +4,7 @@
 % population size is fixed to POPSIZE
 
 N = 16;
-POPSIZE = 600;
+POPSIZE = 1400;
 GENSIZE = 100;
 
 options = gaoptimset('CreationFcn', @get_population, ...
