@@ -12,6 +12,8 @@
 \usepackage{tikz}
 \usepackage[justification=centering,labelfont=bf]{caption}
 \usepackage{multirow}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
 \usetikzlibrary{quotes,arrows.meta}
 
 \graphicspath{{pics/}}
@@ -33,7 +35,7 @@
 
     \tableofcontents
 
-    \section{Task 1}
+    \section{Question 1}
         The equation for the basic Schema Theorem is the next:
         \begin{align*}
             E[m(H, t+1)] \geq m(H, t) \frac{f(H)}{\bar{f}} \Big(1 - \frac{\delta(H)}{L - 1}p_c - o(H) p_m\Big)
@@ -64,13 +66,13 @@
         schemata with above-average fitness (the first factor) increase exponentially
         over generations''
 
-    \section{Task 2}
+    \section{Question 2}
         The fundamental message of the Schema Theorem, or Building Block Hypothesis,
         is that GAs can begin by selecting short, low-order schemata examples, and
         then combine them to create higher order schemata, repeating until a schema
         of length $L-1$ and order $L$ is created and selected.
 
-    \section{Task 3}
+    \section{Question 3}
         There are 3 types of problem ``difficulty''.
         \begin{itemize}
             \item intra-BB
@@ -80,7 +82,7 @@
         The most important is an intra-BB difficulty, or deceptiveness. This means
         at least one optimal schema is outcompeted by non-optimal schema.
 
-    \section{Task 4}
+    \section{Question 4}
         \begin{align*}
             S1 &= \texttt{*0**11***0**}, & o(S1) = 4, \delta(S1) = 8, L = 12\\
             S2 &= \texttt{*****0*1****}, & o(S1) = 2, \delta(S1) = 2, L = 12
@@ -105,7 +107,7 @@
         of 2 which makes possible to describe $S2$ as short and low-order
         schemata.
 
-    \section{Task 5}
+    \section{Question 5}
         \begin{table}[H]
         \centering
             \begin{tabular}{ll}
@@ -148,14 +150,15 @@
             &= \frac{10 + 2 \cdot 20}{3} = \frac{100}{6} \approx 16.7\\
         \end{align*}
 
-    \section{Task 6}
+    \section{Question 6}
         \begin{table}[H]
         \centering
-            \begin{tabular}{l|l|llllllll}
+            \begin{tabular}{|l|l|llllllll|}
+            \hline
             \multicolumn{2}{l|}{phenotype (integer)} & 0   & 1   & 2   & 3   & 4   & 5   & 6   & 7   \\ \hline
             \multirow{2}{*}{genotype}    & binary    & 000 & 001 & 010 & 011 & 100 & 101 & 110 & 111 \\
                                          & gray      & 000 & 001 & 011 & 010 & 110 & 111 & 101 & 100 \\ \hline
-            \multicolumn{2}{l|}{fitness}             & 7   & 5   & 3   & 9   & 10  & 1   & 6   & 6
+            \multicolumn{2}{|l|}{fitness}             & 7   & 5   & 3   & 9   & 10  & 1   & 6   & 6   \\ \hline
             \end{tabular}
         \end{table}
 
@@ -176,14 +179,14 @@
                                     & schema  &            & 00*        & 0*0        & *00          &              &            &            &                \\
                                     & fitness &            & \textbf{6} & 5          & \textbf{8.5} &              &            &            &                \\ \hline
             \multicolumn{10}{|c|}{} \\ \hline
-            \multirow{8}{*}{gray}   & schema  & 100        & 10*        & 1*0        & *00          & 1**          & *0*        & **0        & ***            \\
-                                    & fitness & \textbf{6} & \textbf{6} & \textbf{8} & \textbf{6.5} & 5.75         & \textbf{6} & \textbf{8} & \textbf{5.875} \\ \cline{2-10}
-                                    & schema  &            & 11*        & 1*1        & *11          & 0**          & *1*        & **1        &                \\
-                                    & fitness &            & 5.5        & 3.5        & 2            & \textbf{6}   & 5.75       & 3.75       &                \\ \cline{2-10}
+            \multirow{8}{*}{gray}   & schema  & 100        & 10*        & 1*0        & *10          & 0**          & *0*        & **0        & ***            \\
+                                    & fitness & \textbf{6} & \textbf{6} & \textbf{8} & \textbf{9.5} & \textbf{6}          & \textbf{6} & \textbf{8} & \textbf{5.875} \\ \cline{2-10}
+                                    & schema  &            & 11*        & 1*1        & *11          & 1**          & *1*        & **1        &                \\
+                                    & fitness &            & 5.5        & 3.5        & 2            & 5.75   & 5.75       & 3.75       &                \\ \cline{2-10}
                                     & schema  &            & 01*        & 0*1        & *01          &              &            &            &                \\
                                     & fitness &            & \textbf{6} & 4          & 5.5          &              &            &            &                \\ \cline{2-10}
                                     & schema  &            & 00*        & 0*0        & *00          &              &            &            &                \\
-                                    & fitness &            & \textbf{6} & \textbf{8} & \textbf{6.5} &              &            &            &                \\ \hline
+                                    & fitness &            & \textbf{6} & \textbf{8} & 6.5 &              &            &            &                \\ \hline
             \end{tabular}
         \end{table}
 
@@ -232,4 +235,129 @@
             \caption{Hamming cube diagram for gray encoding}
             \label{fig:hamm_gray}
         \end{figure}
+
+        {\bf b)} The problem is partially deceptive for both of encodings. For binary
+        encoding the optimal schema 10* ($f(10*) = 5.5$) was outcompeted by non-optimal
+        (e.g. $f(11*) = 6$), while the optimal schema 1*0 ($f(1*0) = 8$) outcompetes
+        others. Thus, the problem for binary encoding is partially deceptive. For gray
+        encoding the fitness value of the optimal schema 1*0 ($f(1*0) = 8$) is equal
+        to the fitness value of the non-optimal schema 0*0 ($f(0*0) = 8$), which makes
+        the problem partially deceptive.
+
+        Now, to determine a type of deceptiveness, let's
+        look at the Hamming diagrams. For binary encoding, we have maximum distance between
+        suboptima ($f(011) = 9$) and the optima ($f(100) = 10$). That is binary encoded
+        problem is Type II deceptive. Gray encoding has the minimum distance between sub-optima
+        and optima. Thus, the problem in this case is Type I deceptive.
+
+        {\bf c)} They are not. If we look at the columns for order 1 on the Table \ref{tab:sa},
+        we can compute saliences for schemas as difference between corresponding rows. As in
+        both encoding they have different differences, they are not uniformly scaled.
+
+        {\bf d)} In case of non-uniformly scaled saliences, there is no selective pressure
+        on lower order bits until the highest order bit gets fixed. Thus, it kills implicit
+        parallelism, which makes it converge longer and it has so called domino convergence,
+        when you drift from one suboptima to another step-by-step.
+
+        {\bf e)} In terms of convergence, the gray encoding makes the problem easier as it
+        becomes Type I deceptive. As we know, Type I deceptive problems are not GA-hard.
+        On the other hand, Type II problem may converge faster, but it is not guaranteed
+        it converges to the global optima. The convergence depends on parameters such as
+        initial proportions of examples in population, etc.
+
+        {\bf f)} The way to make an encoding to make the problem fully easy is arranging
+        the fitness values ascending and assigning them to the Hamming cube's corners with the step
+        of 1 in terms of the hamming distance. My custom encoding is given in the Table
+        \ref{tab:cust_gt} and Fig. \ref{fig:hamm_custom}.
+
+        \begin{table}[H]
+        \centering
+        \caption{Custom genotype}
+        \label{tab:cust_gt}
+            \begin{tabular}{|l|llllllll|}
+            \hline
+            phenotype       & 0   & 1   & 2   & 3   & 4   & 5   & 6   & 7   \\ \hline
+            custom genotype & 100 & 011 & 101 & 010 & 110 & 001 & 000 & 111 \\ \hline
+            fitness         & 7   & 5   & 3   & 9   & 10  & 1   & 6   & 6   \\ \hline
+            \end{tabular}
+        \end{table}
+
+        \begin{figure}[H]
+            \centering
+            \begin{tikzpicture}[every edge quotes/.append style={auto, text=blue}]
+                \pgfmathsetmacro{\cubex}{5}
+                \pgfmathsetmacro{\cubey}{5}
+                \pgfmathsetmacro{\cubez}{5}
+                \draw [draw=black, every edge/.append style={draw=black, densely dashed, opacity=.5}]
+                    (0,0,0) coordinate (o) -- ++(-\cubex,0,0) coordinate (a) -- ++(0,-\cubey,0) coordinate (b) edge coordinate [pos=1] (g) ++(0,0,-\cubez)  -- ++(\cubex,0,0) coordinate (c) -- cycle
+                    (o) -- ++(0,0,-\cubez) coordinate (d) -- ++(0,-\cubey,0) coordinate (e) edge (g) -- (c) -- cycle
+                    (o) -- (a) -- ++(0,0,-\cubez) coordinate (f) edge (g) -- (d) -- cycle;
+                \node[label=right:111 (6)] at (o) {};
+                \node[label=left:011 (5)] at (a) {};
+                \node[label=below:001 (1)] at (b) {};
+                \node[label=below:101 (3)] at (c) {};
+                \node[label=above:110 (10)] at (d) {};
+                \node[label=right:100 (7)] at (e) {};
+                \node[label=above:010 (9)] at (f) {};
+                \node[label=left:000 (6)] at (g) {};
+            \end{tikzpicture}
+            \caption{Hamming cube diagram for custom encoding}
+            \label{fig:hamm_custom}
+        \end{figure}
+
+        The proof that the problem is fully easy is given in the Table \ref{tab:sa_custom}.
+        Optimal schemas outcompete all non-optimal schemas. We have achieved it by constructing
+        the encoding with no valleys.
+        \begin{table}[H]
+        \centering
+        \caption{Schema Analysis for custom code. Optimal schemas are underscored.}
+        \label{tab:sa_custom}
+            \begin{tabular}{|l|l|c|ccc|ccc|c|}
+            \hline
+            {\color[HTML]{000000} }                         & {\color[HTML]{000000} order}   & {\color[HTML]{000000} 3}           & \multicolumn{3}{c|}{{\color[HTML]{000000} 2}}                                                                 & \multicolumn{3}{c|}{{\color[HTML]{000000} 1}}                                                                 & {\color[HTML]{000000} 0}              \\ \hline
+            {\color[HTML]{000000} }                         & {\color[HTML]{000000} schema}  & {\color[HTML]{000000} 110}         & {\color[HTML]{000000} {\ul 11*}}  & {\color[HTML]{000000} 1*1}          & {\color[HTML]{000000} *11}          & {\color[HTML]{000000} **1}        & {\color[HTML]{000000} {\ul *1*}}    & {\color[HTML]{000000} {\ul 1**}}    & {\color[HTML]{000000} ***}            \\
+            {\color[HTML]{000000} }                         & {\color[HTML]{000000} fitness} & {\color[HTML]{000000} \textbf{10}} & {\color[HTML]{000000} \textbf{8}} & {\color[HTML]{000000} 4.5}          & {\color[HTML]{000000} 5.5}          & {\color[HTML]{000000} 3.75}       & {\color[HTML]{000000} \textbf{7.5}} & {\color[HTML]{000000} \textbf{6.5}} & {\color[HTML]{000000} \textbf{5.875}} \\ \cline{2-10}
+            {\color[HTML]{000000} }                         & {\color[HTML]{000000} schema}  & {\color[HTML]{000000} }            & {\color[HTML]{000000} 01*}        & {\color[HTML]{000000} 0*1}          & {\color[HTML]{000000} *01}          & {\color[HTML]{000000} {\ul **0}}  & {\color[HTML]{000000} *0*}          & {\color[HTML]{000000} 0**}          & {\color[HTML]{000000} }               \\
+            {\color[HTML]{000000} }                         & {\color[HTML]{000000} fitness} & {\color[HTML]{000000} }            & {\color[HTML]{000000} 7}          & {\color[HTML]{000000} 3}            & {\color[HTML]{000000} 2}            & {\color[HTML]{000000} \textbf{8}} & {\color[HTML]{000000} 4.25}         & {\color[HTML]{000000} 5.25}         & {\color[HTML]{000000} }               \\ \cline{2-10}
+            {\color[HTML]{000000} }                         & {\color[HTML]{000000} schema}  & {\color[HTML]{000000} }            & {\color[HTML]{000000} 10*}        & {\color[HTML]{000000} {\ul 1*0}}    & {\color[HTML]{000000} {\ul *10}}    & {\color[HTML]{000000} }           & {\color[HTML]{000000} }             & {\color[HTML]{000000} }             & {\color[HTML]{000000} }               \\
+            {\color[HTML]{000000} }                         & {\color[HTML]{000000} fitness} & {\color[HTML]{000000} }            & {\color[HTML]{000000} 5}          & {\color[HTML]{000000} \textbf{8.5}} & {\color[HTML]{000000} \textbf{9.5}} & {\color[HTML]{000000} }           & {\color[HTML]{000000} }             & {\color[HTML]{000000} }             & {\color[HTML]{000000} }               \\ \cline{2-10}
+            {\color[HTML]{000000} }                         & {\color[HTML]{000000} schema}  & {\color[HTML]{000000} }            & {\color[HTML]{000000} 00*}        & {\color[HTML]{000000} 0*0}          & {\color[HTML]{000000} *00}          & {\color[HTML]{000000} }           & {\color[HTML]{000000} }             & {\color[HTML]{000000} }             & {\color[HTML]{000000} }               \\
+            \multirow{-8}{*}{{\color[HTML]{000000} custom}} & {\color[HTML]{000000} fitness} & {\color[HTML]{000000} }            & {\color[HTML]{000000} 3.5}        & {\color[HTML]{000000} 7.5}          & {\color[HTML]{000000} 6.5}          & {\color[HTML]{000000} }           & {\color[HTML]{000000} }             & {\color[HTML]{000000} }             & {\color[HTML]{000000} }               \\ \hline
+            \end{tabular}
+        \end{table}
+
+    \section{Question 7}
+        Let's assume we have done crossover and have $P_{ij}^{t+1}, i,j \in {0, 1}$.
+        Now we do mutation for $P_{11}$: the number of samples that go to the next step
+        is the number of samples which ``survive'' mutation. It is $(1 - p_m') P_{11}^{t+1}$,
+        where $p_m' = 1 - (1 - p_m)^{o(H)}$ is the probability of destruction. Now
+        calculate the constructive part. We can get $P_{11}$ from $P_{10}$ by flipping
+        the second bit, from $P_{01}$ by flipping the first bit and from $P_{00}$ by
+        flipping both bits. The probability of mutating only one bit is $p_m(1 - p_m)$.
+        The equation means we flip one and don't flip the second. The probability of
+        flipping both bits is $p_m^2$. Thus, we have the next equation for $P_{11}^{t+1}$:
+        $$\mathbb{P}_{11}^{t+1} = (1 - p_m)^2 P_{11}^{t+1} + p_m(1 - p_m)[P_{01}^{t+1} + P_{10}^{t+1}] +
+        p_m^2 P_{00}^{t+1}$$
+
+        I put $\mathbb{P}$ to point out that that is the new value.
+
+        Applying the same logic for others, we get the next set of equations:
+        \begin{align*}
+            \mathbb{P}_{00}^{t+1} &= (1 - p_m)^2 P_{00}^{t+1} + p_m(1 - p_m)[P_{10}^{t+1} + P_{01}^{t+1}] + p_m^2 P_{11}^{t+1} \\
+            \mathbb{P}_{01}^{t+1} &= (1 - p_m)^2 P_{01}^{t+1} + p_m(1 - p_m)[P_{00}^{t+1} + P_{11}^{t+1}] + p_m^2 P_{10}^{t+1} \\
+            \mathbb{P}_{10}^{t+1} &= (1 - p_m)^2 P_{10}^{t+1} + p_m(1 - p_m)[P_{11}^{t+1} + P_{00}^{t+1}] + p_m^2 P_{01}^{t+1} \\
+            \mathbb{P}_{11}^{t+1} &= (1 - p_m)^2 P_{11}^{t+1} + p_m(1 - p_m)[P_{01}^{t+1} + P_{10}^{t+1}] + p_m^2 P_{00}^{t+1} \\
+        \end{align*}
+
+        To check the correctness of the system, we can sum the equations up and they should equal to 1:
+        \begin{align*}
+            Sum &= \mathbb{P}_{00}^{t+1} + \mathbb{P}_{01}^{t+1} + \mathbb{P}_{10}^{t+1} + \mathbb{P}_{11}^{t+1} = \\
+            & = (1 - p_m)^2 [P_{00}^{t+1} + P_{01}^{t+1} + P_{10}^{t+1} + P_{11}^{t+1}] +\\
+            & + 2 p_m (1 - p_m)[P_{00}^{t+1} + P_{01}^{t+1} + P_{10}^{t+1} + P_{11}^{t+1}] +\\
+            & + p_m^2 [P_{00}^{t+1} + P_{01}^{t+1} + P_{10}^{t+1} + P_{11}^{t+1}] =\\
+            & = \{as P_{00}^{t+1} + P_{01}^{t+1} + P_{10}^{t+1} + P_{11}^{t+1} = 1\} =\\
+            & = (1 - p_m)^2 + 2 p_m (1 - p_m) + p_m^2 =\\
+            & = [(1 - p_m) + p_m]^2 = 1
+        \end{align*}\textbf{}
+
 \end{document}
