@@ -1,0 +1,216 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{hyperref}
+
+\begin{document}
+    \begin{center}
+        \includegraphics[height=3cm]{pics/UVM.png}
+
+        {\large\textbf{
+            CS253A QR: Reinforcement Learning \\ Assignment \textnumero 5
+        }}
+
+        \vspace{0.3cm}
+
+        \textit{\textbf{Ayat Ospanov}}
+
+        \today
+    \end{center}
+
+    \tableofcontents
+
+    \section{Exercise 4.1}
+        \begin{align*}
+            &q_\pi(s,a) = \sum\limits_{s',r} p(s',r|s,a)[r +
+            \gamma \sum\limits_{a'} \pi(a'|s') q_\pi(s',a')]\\
+        \end{align*}
+
+        Let's calculate $q_\pi(11,\text{down}):$
+
+        \begin{align*}
+            q_\pi(11,\text{down}) &= \sum\limits_{s',r} p(s',r|11,\text{down})[r +
+            \gamma \sum\limits_{a'} \pi(a'|s') q_\pi(s',a')] =\\
+            & = \sum\limits_{s',r} [-1 +
+            \frac{1}{4} \sum\limits_{a'} q_\pi(s',a')] =\\
+            & = \frac{1}{4} \sum\limits_{a'} q_\pi(T,a') - 1 +
+            \frac{1}{4} \sum\limits_{a'} q_\pi(10,a') - 1 +\\
+            & + \frac{1}{4} \sum\limits_{a'} q_\pi(7,a') - 1 +
+            \frac{1}{4} \sum\limits_{a'} q_\pi(11,a') - 1 =\\
+            & = \frac{1}{4} \sum\limits_{a'} q_\pi(10,a') +
+            \frac{1}{4} \sum\limits_{a'} q_\pi(7,a') +
+            \frac{1}{4} \sum\limits_{a'} q_\pi(11,a') - 4 =\\
+            & = \frac{1}{4} \sum\limits_{a' \in \{\text{left, up, right}\}}
+            [q_\pi(10,a') + q_\pi(7,a') + q_\pi(11,a')] +\\
+            & + \frac{1}{4} [q_\pi(10,\text{down}) + q_\pi(7,\text{down}) +
+            q_\pi(11,\text{down})] - 4
+        \end{align*}
+
+        \begin{align*}
+            \frac{3}{4}q_\pi(11,\text{down}) &= \frac{1}{4} \sum\limits_{a' \in \{\text{left, up, right}\}} [q_\pi(10,a') + q_\pi(7,a') + q_\pi(11,a')] +\\
+            & + \frac{1}{4} [q_\pi(10,\text{down}) + q_\pi(7,\text{down})] - 4
+        \end{align*}
+
+        The final form looks like this, but as all $q_\pi(s', a')$ depend on $q_\pi(11,\text{down})$ we can't have the ``final'' final form
+
+        \begin{align*}
+            q_\pi(11,\text{down}) &= \frac{1}{3} \sum\limits_{a' \in \{\text{left, up, right}\}} [q_\pi(10,a') + q_\pi(7,a') + q_\pi(11,a')] +\\
+            & + \frac{1}{3} [q_\pi(10,\text{down}) + q_\pi(7,\text{down})] - \frac{16}{3}
+        \end{align*}
+
+        Now, let's calculate $q_\pi(7, \text{down})$:
+
+        \begin{align*}
+            q_\pi(7,\text{down}) &= \sum\limits_{s',r} p(s',r|7,\text{down})[r +
+            \gamma \sum\limits_{a'} \pi(a'|s') q_\pi(s',a')] =\\
+            & = \sum\limits_{s',r} [-1 + \frac{1}{4} \sum\limits_{a'} q_\pi(s',a')] =\\
+            & = \frac{1}{4} \sum\limits_{a'} q_\pi(11,a') - 1 +
+            \frac{1}{4} \sum\limits_{a'} q_\pi(6,a') - 1 +\\
+            & + \frac{1}{4} \sum\limits_{a'} q_\pi(3,a') - 1 +
+            \frac{1}{4} \sum\limits_{a'} q_\pi(7,a') - 1 =\\
+            & = \frac{1}{4} \sum\limits_{\substack{a' \in \{\text{left, up, right}\} \\ s' \in \{3, 6, 7, 11\}}} q_\pi(s',a') + \frac{1}{4} \sum\limits_{\substack{s' \in \{3, 6, 7, 11\}}} q_\pi(s',\text{down}) - 4
+        \end{align*}
+
+        \begin{align*}
+            \frac{3}{4}q_\pi(7,\text{down}) &= \frac{1}{4} \sum\limits_{\substack{a' \in \{\text{left, up, right}\} \\ s' \in \{3, 6, 7, 11\}}} q_\pi(s',a') + \frac{1}{4} \sum\limits_{\substack{s' \in \{3, 6, 11\}}} q_\pi(s',\text{down}) - 4
+        \end{align*}
+
+        The same final look for $q_\pi(7,\text{down})$ as for $q_\pi(11, down)$
+
+        \begin{align*}
+            q_\pi(7,\text{down}) &= \frac{1}{3} \sum\limits_{\substack{a' \in \{\text{left, up, right}\} \\ s' \in \{3, 6, 7, 11\}}} q_\pi(s',a') + \frac{1}{3} \sum\limits_{\substack{s' \in \{3, 6, 11\}}} q_\pi(s',\text{down}) - \frac{16}{3}
+        \end{align*}
+
+    \section{Exercise 4.2}
+        \begin{align*}
+            &v_\pi(s) = \sum\limits_a \pi(a|s)\sum\limits_{s',r} p(s',r|s,a)[r +
+            \gamma v_\pi(s')]\\
+        \end{align*}
+
+        \begin{align*}
+            v_\pi(15) &= \sum\limits_a \frac{1}{4} \sum\limits_{s' (\text{given }a)} [-1 + v_\pi(s')] =\\
+            &= \frac{1}{4} \sum\limits_{s' \in \{12, 13, 14, 15\}} [-1 + v_\pi(s')] =\\
+            &= \frac{1}{4} [v_\pi(12) + v_\pi(13) + v_\pi(14) + v_\pi(15) - 4]
+        \end{align*}
+
+        Thus, when transitions for original states are unchanged, we have:
+        \begin{align*}
+            v_\pi(15) = \frac{1}{3} [v_\pi(12) + v_\pi(13) + v_\pi(14) - 4]
+        \end{align*}
+
+        If the action ``down'' transits the state to 15, then we have the same formula,
+        but the value of $v_\pi(13)$ will be counted in another way which includes $v_\pi(15)$ and, therefore, adds one more step in recursion.
+
+    \section{Exercise 4.3}
+        \begin{align*}
+            q_\pi(s,a) &= \mathbb{E}_\pi[G_t|S_t=s,A_t=a] =\\
+            &= \mathbb{E}_\pi[R_{t+1} + \gamma \mathbb{E}_\pi[q_\pi(S_{t+1},A_{t+1})]
+            |S_t=s,A_t=a] =\\
+            &= \sum\limits_{s',r} p(s',r|s,a)[r +
+            \gamma \sum\limits_{a'} \pi(a'|s') q_\pi(s',a')]
+        \end{align*}
+
+        \begin{align*}
+            q_{k+1}(s,a) &= \mathbb{E}_\pi[R_{t+1} +
+            \gamma \mathbb{E}_\pi[q_k(S_{t+1},A_{t+1})]
+            |S_t=s,A_t=a] =\\
+            &= \sum\limits_{s',r} p(s',r|s,a)[r +
+            \gamma \sum\limits_{a'} \pi(a'|s') q_k(s',a')]
+        \end{align*}
+
+    \section{Exercise 4.4}
+        I can suggest two solutions:
+
+        1) As we know each iteration improves the policy, we can terminate when
+        we reach maximum number of iterations we set in advance
+
+        2) If several policies have the same value, then they are all maximums.
+        Thus, we can just check if our old policy is in the Argmax (not to be
+        confused with argmax which is the value, while Argmax is the set)
+
+    \section{Exercise 4.5}
+        \textbf{1. Initialization}
+
+        \qquad $q(s, a) \in \mathbb{R}$ arbitrarily for all
+        $(s,a) \in \mathcal{S} \times \mathcal{A}$ and $\pi(s) \in \mathcal{A}(s)$
+        arbitrarily for all $s \in \mathcal{S}$
+
+        \bigskip
+
+        \textbf{2. Policy Evaluation}
+
+        \qquad $\Delta \leftarrow 0$
+
+        \qquad Loop:
+
+        \qquad \qquad Loop for each $(s, a) \in \mathcal{S} \times \mathcal{A}$
+
+        \qquad \qquad \qquad $q \leftarrow q(s, a)$
+
+        \qquad \qquad \qquad $q(s, a) \leftarrow \sum\limits_{s',r} p(s',r|s,a)
+        [r + \gamma q(s',\pi(s'))]$
+
+        \qquad \qquad \qquad $\Delta \leftarrow \max(\Delta, |q - q(s, a)|)$
+
+        \qquad until $\Delta < \theta$
+
+        \bigskip
+
+        \textbf{3. Policy Improvement}
+
+        \qquad policy-stable $\leftarrow$ true
+
+        \qquad For each $s \in \mathcal{S}$:
+
+        \qquad \qquad old-action $\leftarrow \pi(s)$
+
+        \qquad \qquad $\pi \leftarrow Arg\max\limits_a q(s,a)$
+
+        \qquad \qquad $\pi(s) = random(\pi)$
+
+        \qquad \qquad if old-action $\notin \pi$, then policy-stable $\leftarrow$ false
+
+        \qquad if policy-stable, then stop and return $Q \approx q_*$
+        and $\pi \approx \pi_*$; else go to 2
+
+    \section{Exercise 4.6}
+        We will ignore termination conditions and describe only significant changes
+
+        Changes in \textbf{step 3}:
+            $$a_{opt} = arg\max\limits_a \pi(a|s)\sum\limits_{s',r} p(s',r|s,a)
+            [r + \gamma V_\pi(s')]$$
+            Then we have to change the probabilities of not optimal actions to
+            $\frac{\varepsilon}{|\mathcal{A}(s)|}$, and the probability of the optimal
+            to the $1 - \frac{\varepsilon}{|\mathcal{A}(s)|}(|\mathcal{A}(s)| -1) =
+            1 - \varepsilon + \frac{\varepsilon}{|\mathcal{A}(s)|}$
+            \[
+                \pi(a|s) =
+                \begin{cases}
+                    1 - \varepsilon + \frac{\varepsilon}{|\mathcal{A}(s)|}, & \text{if } a = a_{opt} \\
+                    \frac{\varepsilon}{|\mathcal{A}(s)|}, & \text{if } a \neq a_{opt}
+                \end{cases}
+            \]
+
+        Changes in \textbf{step 2}:
+            $$V(s) = \sum\limits_{a \in \mathcal{A}(s)} \pi(a|s)\sum\limits_{s',r} p(s',r|s,a)
+            [r + \gamma V_\pi(s')]$$
+
+        Changes in \textbf{step 1}: $\pi$ becomes a list of lists of probabilities
+        (not a matrix as each row has different lengths) and is initialized with
+        $\frac{\varepsilon}{|\mathcal{A}(s)|}$, while random action for each
+        state has the probability of $1 - \varepsilon + \frac{\varepsilon}{|\mathcal{A}(s)|}$
+
+    \section{Exercise 4.10}
+        \begin{align*}
+            q_{k+1}(s,a) &= \mathbb{E}_\pi[R_{t+1} +
+            \gamma \max\limits_{a'} \mathbb{E}_\pi[q_k(S_{t+1},a')]
+            |S_t=s,A_t=a] =\\
+            &= \sum\limits_{s',r} p(s',r|s,a)[r +
+            \gamma \max\limits_{a'} q_k(s',a')]
+        \end{align*}
+
+\end{document}

@@ -1,3 +1,8 @@
+RL/hw5/reinforcement/*
+!RL/hw5/reinforcement/valueIterationAgents.py
+!RL/hw5/reinforcement/analysis.py
+!RL/hw5/reinforcement/README.md
+
 ###############
 ### Python ####
 ###############
