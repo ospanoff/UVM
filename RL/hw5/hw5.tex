@@ -25,64 +25,20 @@
     \tableofcontents
 
     \section{Exercise 4.1}
-        \begin{align*}
-            &q_\pi(s,a) = \sum\limits_{s',r} p(s',r|s,a)[r +
-            \gamma \sum\limits_{a'} \pi(a'|s') q_\pi(s',a')]\\
-        \end{align*}
-
         Let's calculate $q_\pi(11,\text{down}):$
 
         \begin{align*}
             q_\pi(11,\text{down}) &= \sum\limits_{s',r} p(s',r|11,\text{down})[r +
             \gamma \sum\limits_{a'} \pi(a'|s') q_\pi(s',a')] =\\
-            & = \sum\limits_{s',r} [-1 +
-            \frac{1}{4} \sum\limits_{a'} q_\pi(s',a')] =\\
-            & = \frac{1}{4} \sum\limits_{a'} q_\pi(T,a') - 1 +
-            \frac{1}{4} \sum\limits_{a'} q_\pi(10,a') - 1 +\\
-            & + \frac{1}{4} \sum\limits_{a'} q_\pi(7,a') - 1 +
-            \frac{1}{4} \sum\limits_{a'} q_\pi(11,a') - 1 =\\
-            & = \frac{1}{4} \sum\limits_{a'} q_\pi(10,a') +
-            \frac{1}{4} \sum\limits_{a'} q_\pi(7,a') +
-            \frac{1}{4} \sum\limits_{a'} q_\pi(11,a') - 4 =\\
-            & = \frac{1}{4} \sum\limits_{a' \in \{\text{left, up, right}\}}
-            [q_\pi(10,a') + q_\pi(7,a') + q_\pi(11,a')] +\\
-            & + \frac{1}{4} [q_\pi(10,\text{down}) + q_\pi(7,\text{down}) +
-            q_\pi(11,\text{down})] - 4
-        \end{align*}
-
-        \begin{align*}
-            \frac{3}{4}q_\pi(11,\text{down}) &= \frac{1}{4} \sum\limits_{a' \in \{\text{left, up, right}\}} [q_\pi(10,a') + q_\pi(7,a') + q_\pi(11,a')] +\\
-            & + \frac{1}{4} [q_\pi(10,\text{down}) + q_\pi(7,\text{down})] - 4
-        \end{align*}
-
-        The final form looks like this, but as all $q_\pi(s', a')$ depend on $q_\pi(11,\text{down})$ we can't have the ``final'' final form
-
-        \begin{align*}
-            q_\pi(11,\text{down}) &= \frac{1}{3} \sum\limits_{a' \in \{\text{left, up, right}\}} [q_\pi(10,a') + q_\pi(7,a') + q_\pi(11,a')] +\\
-            & + \frac{1}{3} [q_\pi(10,\text{down}) + q_\pi(7,\text{down})] - \frac{16}{3}
+            & = -1 + \frac{1}{4} \sum\limits_{a'} q_\pi(T,a') = -1
         \end{align*}
 
         Now, let's calculate $q_\pi(7, \text{down})$:
 
         \begin{align*}
             q_\pi(7,\text{down}) &= \sum\limits_{s',r} p(s',r|7,\text{down})[r +
-            \gamma \sum\limits_{a'} \pi(a'|s') q_\pi(s',a')] =\\
-            & = \sum\limits_{s',r} [-1 + \frac{1}{4} \sum\limits_{a'} q_\pi(s',a')] =\\
-            & = \frac{1}{4} \sum\limits_{a'} q_\pi(11,a') - 1 +
-            \frac{1}{4} \sum\limits_{a'} q_\pi(6,a') - 1 +\\
-            & + \frac{1}{4} \sum\limits_{a'} q_\pi(3,a') - 1 +
-            \frac{1}{4} \sum\limits_{a'} q_\pi(7,a') - 1 =\\
-            & = \frac{1}{4} \sum\limits_{\substack{a' \in \{\text{left, up, right}\} \\ s' \in \{3, 6, 7, 11\}}} q_\pi(s',a') + \frac{1}{4} \sum\limits_{\substack{s' \in \{3, 6, 7, 11\}}} q_\pi(s',\text{down}) - 4
-        \end{align*}
-
-        \begin{align*}
-            \frac{3}{4}q_\pi(7,\text{down}) &= \frac{1}{4} \sum\limits_{\substack{a' \in \{\text{left, up, right}\} \\ s' \in \{3, 6, 7, 11\}}} q_\pi(s',a') + \frac{1}{4} \sum\limits_{\substack{s' \in \{3, 6, 11\}}} q_\pi(s',\text{down}) - 4
-        \end{align*}
-
-        The same final look for $q_\pi(7,\text{down})$ as for $q_\pi(11, down)$
-
-        \begin{align*}
-            q_\pi(7,\text{down}) &= \frac{1}{3} \sum\limits_{\substack{a' \in \{\text{left, up, right}\} \\ s' \in \{3, 6, 7, 11\}}} q_\pi(s',a') + \frac{1}{3} \sum\limits_{\substack{s' \in \{3, 6, 11\}}} q_\pi(s',\text{down}) - \frac{16}{3}
+            \gamma v_\pi(s')] =\\
+            & = -1 + v_\pi(11) = -1 - 14 = -15
         \end{align*}
 
     \section{Exercise 4.2}
@@ -99,11 +55,13 @@
 
         Thus, when transitions for original states are unchanged, we have:
         \begin{align*}
-            v_\pi(15) = \frac{1}{3} [v_\pi(12) + v_\pi(13) + v_\pi(14) - 4]
+            v_\pi(15) &= \frac{1}{3} [v_\pi(12) + v_\pi(13) + v_\pi(14) - 4] =\\
+            & = \frac{1}{3}[-22-20-14-4] = -20
         \end{align*}
 
-        If the action ``down'' transits the state to 15, then we have the same formula,
-        but the value of $v_\pi(13)$ will be counted in another way which includes $v_\pi(15)$ and, therefore, adds one more step in recursion.
+        If the action ``down'' on the state 13 transits the state to 15, we have the same situation.
+        It happens, because the state 15 is the ``copy'' of state 13: all neighboring states are the
+        same for both states, so going from 13 to 15 is the same as going from 13 to 13.
 
     \section{Exercise 4.3}
         \begin{align*}
@@ -201,7 +159,7 @@
 
         Changes in \textbf{step 1}: $\pi$ becomes a list of lists of probabilities
         (not a matrix as each row has different lengths) and is initialized with
-        $\frac{\varepsilon}{|\mathcal{A}(s)|}$, while random action for each
+        $\frac{\varepsilon}{|\mathcal{A}(s)|}$, while a random action for each
         state has the probability of $1 - \varepsilon + \frac{\varepsilon}{|\mathcal{A}(s)|}$
 
     \section{Exercise 4.10}
