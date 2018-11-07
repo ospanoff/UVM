@@ -4,6 +4,11 @@ RL/hw*/reinforcement/*
 !RL/hw5/reinforcement/README.md
 !RL/hw7/reinforcement/analysis.py
 !RL/hw7/reinforcement/qlearningAgents.py
+!RL/hw8/reinforcement/gridworld.py
+!RL/hw8/reinforcement/sarsaNAgents.py
+!RL/hw8/reinforcement/pacman.py
+!RL/hw8/reinforcement/res/*
+EC/project/
 
 ###############
 ### Python ####
